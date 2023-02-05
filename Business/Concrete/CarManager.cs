@@ -1,11 +1,8 @@
 ﻿using Business.Abstract;
 using DataAccess.Abstract;
 using Entities.Concrete;
-using System;
+using Entities.DTOs;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Business.Concrete
 {
@@ -28,7 +25,7 @@ namespace Business.Concrete
         }
         public void Add(Car car)
         {
-            if (car.Description.Length > 2 && car.DailyPrice > 0)
+            if (car.CarName.Length > 2 && car.DailyPrice > 0)
             {
                 _carDal.Add(car);
             }
@@ -40,6 +37,21 @@ namespace Business.Concrete
         public void Update(Car car)
         {
             _carDal.Update(car);
+        }
+
+        public List<Car> GetAll()
+        {
+            return _carDal.GetAll();
+        }
+
+        public Car Get(int id)
+        {
+            return _carDal.Get(p=>p.Id==id);
+        }
+
+        public List<CarDetailDto> CarDetails()
+        {
+            return _carDal.GetCarDetails();
         }
     }
 }

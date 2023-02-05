@@ -25,8 +25,8 @@ namespace DataAccess.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("BrandName")
-                        .HasColumnType("int");
+                    b.Property<string>("BrandName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -42,6 +42,9 @@ namespace DataAccess.Migrations
 
                     b.Property<int>("BrandId")
                         .HasColumnType("int");
+
+                    b.Property<string>("CarName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ColorId")
                         .HasColumnType("int");
