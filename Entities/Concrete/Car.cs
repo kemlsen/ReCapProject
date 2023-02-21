@@ -11,5 +11,8 @@ namespace Entities.Concrete
         public int ModelYear { get; set; }
         public int DailyPrice { get; set; }
         public string? Description { get; set; }
+        public Brand Brand { get; set; }
+        public Color Color { get; set; }
+        public Rental Rental { get; set; }
     }
 }
