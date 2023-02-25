@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.Constants;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -21,32 +22,52 @@ namespace Business.Concrete
 
         public IResult Add(Color color)
         {
+            if (color == null)
+            {
+                return new ErrorResult(Messages.AddedInvalidColor);
+            }
             _colorDal.Add(color);
-            return new SuccessResult();
+            return new SuccessResult(Messages.ColorAdded);
         }
 
         public IResult Delete(Color color)
         {
+            if (color == null)
+            {
+                return new ErrorResult(Messages.DeletedInvalidColor);
+            }
             _colorDal.Delete(color);
-            return new SuccessResult();
+            return new SuccessResult(Messages.ColorDeleted);
         }
 
         public IDataResult<Color> Get(int id)
         {
-            _colorDal.Get(p => p.Id == id);
-            return new SuccessDataResult<Color>();
+            var data = _colorDal.Get(p => p.Id == id);
+            if (data == null)
+            {
+                return new ErrorDataResult<Color>(Messages.InvalidColor);
+            }
+            return new SuccessDataResult<Color>(data, Messages.ColorListed);
         }
 
         public IDataResult<List<Color>> GetAll()
         {
-            _colorDal.GetAll();
-            return new SuccessDataResult<List<Color>>();
+            if (DateTime.Now.Hour == 1)
+            {
+                return new ErrorDataResult<List<Color>>(Messages.MaintenanceTime);
+            }
+            var data = _colorDal.GetAll();
+            return new SuccessDataResult<List<Color>>(data, Messages.ColorsListed);
         }
 
         public IResult Update(Color color)
         {
+            if (color == null)
+            {
+                return new ErrorResult(Messages.UpdatedInvalidColor);
+            }
             _colorDal.Update(color);
-            return new SuccessResult();
+            return new SuccessResult(Messages.ColorUpdated);
         }
     }
 }

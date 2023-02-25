@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.Constants;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -21,34 +22,53 @@ namespace Business.Concrete
 
         public IResult Add(Brand brand)
         {
+            if (brand == null)
+            {
+                return new ErrorResult(Messages.AddedInvalidBrand);
+            }
             _brandDal.Add(brand);
-            return new SuccessResult();
+            return new SuccessResult(Messages.BrandAdded);
         }
 
         public IResult Delete(Brand brand)
         {
+            if (brand == null)
+            {
+                return new ErrorResult(Messages.DeletedInvalidBrand);
+            }
             _brandDal.Delete(brand);
-            return new SuccessResult();
-
+            return new SuccessResult(Messages.BrandDeleted);
         }
 
         public IDataResult<Brand> Get(int id)
         {
-            _brandDal.Get(p => p.Id == id);
-            return new SuccessDataResult<Brand>();
+            var data = _brandDal.Get(p => p.Id == id);
+            if (data == null)
+            {
+                return new ErrorDataResult<Brand>(Messages.InvalidBrand);
+            }
+            return new SuccessDataResult<Brand>(data, Messages.BrandListed);
 
         }
 
         public IDataResult<List<Brand>> GetAll()
         {
-            _brandDal.GetAll();
-            return new SuccessDataResult<List<Brand>>();
+            if (DateTime.Now.Hour == 1)
+            {
+                return new ErrorDataResult<List<Brand>>(Messages.MaintenanceTime);
+            }
+            var data = _brandDal.GetAll();
+            return new SuccessDataResult<List<Brand>>(data, Messages.BrandsListed);
         }
 
         public IResult Update(Brand brand)
         {
+            if (brand == null)
+            {
+                return new ErrorResult(Messages.UpdatedInvalidBrand);
+            }
             _brandDal.Update(brand);
-            return new SuccessResult();
+            return new SuccessResult(Messages.BrandUpdated);
         }
     }
 }
