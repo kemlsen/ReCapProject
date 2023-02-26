@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Business.Constants
+﻿namespace Business.Constants
 {
     public static class Messages
     {
@@ -24,7 +18,7 @@ namespace Business.Constants
         public static string DeletedInvalidColor = "Silinecek renk bulunamadı";
         public static string ColorDeleted = "İlgili renk silindi";
         public static string ColorUpdated = "İlgili renk güncellendi";
-        public static string InvalidColor= "Renk bulunamadı";
+        public static string InvalidColor = "Renk bulunamadı";
         public static string ColorListed = "İlgili renk listelendi";
         public static string ColorsListed = "Renkler listelendi";
         public static string UpdatedInvalidColor = "Silinecek renk bulunamadı";
